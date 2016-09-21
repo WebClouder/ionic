@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+    <script type="text/javascript">
+      angular.module('starter', ['ionic'])
+        .controller('AppCtrl',['$scope','$ionicPopover','$timeout',function($scope,$ionicPopover,$timeout){
+//          $scope.popover= $ionicPopover.fromTemplateUrl('my-popover.html',{
+//            scope:$scope
+//          });
+          $ionicPopover.fromTemplateUrl('my-popover.html',{
+            scope:$scope
+          }).then(function(popover){
+            $scope.popover = popover;
+          });
+
+          $scope.openPopover = function ($event) {
+            $scope.popover.show($event);
+          };
+          $scope.closePopver= function(){
+            $scope.popover.hide();
+          };
+// 清除浮动框
+          $scope.$on('$destroy', function() {
+            $scope.popover.remove();
+          });
+          // 在隐藏浮动框后执行
+          $scope.$on('popover.hidden', function() {
+            // 执行代码
+          });
+          // 移除浮动框后执行
+          $scope.$on('popover.removed', function() {
+            // 执行代码
+          });
+
+        }])
+
+</script>
+  <body ng-app="starter" ng-controller="AppCtrl" >
+
+  <p>
+    <button ng-click="openPopover($event)">打开浮动框</button>
+  </p>
+  <script id="my-popover.html" type="text/ng-template">
+  <ion-popover-view>
+    <ion-header-bar>
+      <h1 class="title">我的 浮动框标题</h1>
+    </ion-header-bar>
+    <ion-content>
+      Hello!
+    </ion-content>
+  </ion-popover-view>
+</script>
+
+  </body>
+
+  </head>
+
+</html>

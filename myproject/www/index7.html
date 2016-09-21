@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+    <script type="text/javascript">
+      angular.module('starter', ['ionic'])
+        .controller('AppCtrl',['$scope','$ionicPopup','$timeout',function($scope,$ionicPopup,$timeout){
+          $scope.showPopup  =  function(){
+            $scope.data = {}
+            var myPopup = $ionicPopup.show(
+              {
+                template:'<input type="password" ng-model="data.wifi">',
+                title:'Enter wi-fi password',
+                subTitle:'Please use normal things',
+                scope:$scope,
+                buttons:[
+                  {text:'Cancel'},
+                  {text:'<b>Save</b>',
+                  type:'button-positive',
+                  onTab: function (e) {
+                    if(!$scope.data.wifi){
+                      e.preventDefault();
+                    }else{
+                      return $scope.data.wifi;
+                    }
+                  }}
+                ]
+
+              }
+            );
+            myPopup.then(function(res){
+              console.log('Tapped!',res);
+            });
+            $timeout(function(){
+              myPopup.close();
+            },3000)
+          }
+
+        }])
+
+</script>
+  <body ng-app="starter" ng-controller="AppCtrl" >
+  <button class="button button-dark"  ng-click="showPopup()">
+    弹出窗口
+  </button>
+
+
+  </body>
+
+  </head>
+
+</html>
